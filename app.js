@@ -53,9 +53,10 @@ console.log('Reading File .............');*/
 /*LECTURE 8: CODE EXAMPLE ***********************
 CREATING A SIMPLE WEB SERVER
 *********************************************/
+const html = fs.readFileSync('./Template/index.html', 'utf-8')
 // STEP 1: CREATE A SERVER
 const server = http.createServer((request, response)=>{
-  response.end('Hello from the Server')
+  response.end(html)
   console.log('A new request received');
   // console.log(response);
   
