@@ -56,9 +56,17 @@ CREATING A SIMPLE WEB SERVER
 const html = fs.readFileSync('./Template/index.html', 'utf-8')
 // STEP 1: CREATE A SERVER
 const server = http.createServer((request, response)=>{
-  response.end(html)
-  console.log('A new request received');
-  // console.log(response);
+  let path = request.url;
+
+  if (path === '/'|| path.toLocaleLowerCase()=== '/home'){
+    response.end('You are in Home Page')
+  } else if (path.toLocaleLowerCase() === '/about') {
+    response.end('You are in about Page')
+  } else if (path.toLowerCase()=== '/contact'){
+    response.end('You are in contact Page');
+  } else {
+    response.end('Error 404: Page not found!')
+  }
   
   
 })
