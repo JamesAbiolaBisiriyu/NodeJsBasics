@@ -59,13 +59,13 @@ const server = http.createServer((request, response)=>{
   let path = request.url;
 
   if (path === '/'|| path.toLocaleLowerCase()=== '/home'){
-    response.end('You are in Home Page')
+    response.end(html.replace('{{%CONTENT%}}', 'You are in Home page'))
   } else if (path.toLocaleLowerCase() === '/about') {
-    response.end('You are in about Page')
+    response.end(html.replace('{{%CONTENT%}}', 'You are in About page'))
   } else if (path.toLowerCase()=== '/contact'){
-    response.end('You are in contact Page');
+    response.end(html.replace('{{%CONTENT%}}', 'You are in Contact page'));
   } else {
-    response.end('Error 404: Page not found!')
+    response.end(html.replace('{{%CONTENT%}}', 'PAGE NOT FOUND, ERROR 404'))
   }
   
   
