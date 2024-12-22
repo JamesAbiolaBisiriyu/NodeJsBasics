@@ -3,8 +3,11 @@ const readline = require('readline');
 const fs = require('fs')  //fs meaning file system module
 const http = require('http');
 const url = require('url'); //used for routing
-const replaceHtml = require('./Modules/replaceHtml')
+const events = require('events') //builtin module in nodejs
+
 // USER DEFINED MODULES OR CUSTOM MODULES
+const replaceHtml = require('./Modules/replaceHtml');
+const user = require('./Modules/user')
 
 // THIRD PARTY MODULE
 
@@ -66,7 +69,7 @@ let productDetailHtml = fs.readFileSync('./Template/product-details.html', 'utf-
 //   } 
 // })
 
-
+//SERVER INHERITS FROM EVENT EMMITER
 const server = http.createServer();
 
 server.on('request', (request, response)=>{
@@ -122,6 +125,18 @@ server.on('request', (request, response)=>{
 server.listen(8000, '127.0.0.1', ()=>{
   console.log('Server has started!');  
 })
+
+let myEmitter = new user();
+
+myEmitter.on('userCreated', (id, name)=>{
+  console.log(`A new user ${name} with ID ${id} is created`);  
+})
+
+myEmitter.on('userCreated', (id, name)=>{
+  console.log(`A new user ${name} with ID ${id} is added to database`)  
+})
+myEmitter.emit('userCreated', 101, 'John');
+
 
 
 
