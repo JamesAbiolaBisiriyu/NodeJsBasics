@@ -149,13 +149,24 @@ server.listen(8000, '127.0.0.1', ()=>{
 // }) 
 
 // SOLUTION 2: WITH READABLE STREAM & WRITABLE STREAM
-server.on('request', (req, res)=>{
-  let readableStream = fs.createReadStream('./Files/large1-file.txt');
-  readableStream.on('data', (chunk)=>{
-    res.write(chunk)
-    res.end();
-  })
-  readableStream.on('error', (error)=> {
-    res.end(error.message);
-  })
-}) 
+// server.on('request', (req, res)=>{
+//   let readableStream = fs.createReadStream('./Files/large-file.txt');
+//   readableStream.on('data', (chunk)=>{
+//     res.write(chunk)
+//   })
+  
+//   readableStream.on('end', () => {
+//     res.end();
+//   })
+
+//   readableStream.on('error', (error)=> {
+//     res.end(error.message);    
+//   })
+// }) 
+
+// SOLUTION 3: WITH READABLE STREAM & WRITABLE STREAM
+server.on('request', (req, res)=> {
+let readableStream = fs.createReadStream('./Files/large-file.txt');
+readableStream.pipe(res)
+// readableSource.pipe(writableDest)
+})
